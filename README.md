@@ -1,6 +1,8 @@
 # 📊 Random Forest Classifier for Employee Burnout Detection
 
 This project uses a **Random Forest Classifier** to predict employee burnout based on synthetic workplace data. It includes **data preprocessing**, **model training**, **hyperparameter tuning**, and **SHAP explainability**.
+
+
 ![image](https://github.com/user-attachments/assets/4805d2ae-daac-4186-90f9-06a76d099143)
 
 ---
@@ -165,6 +167,12 @@ plt.title("Effect of min_samples_leaf")
 plt.show()
 ```
 
+![image](https://github.com/user-attachments/assets/dc99101b-c715-418b-ad97-adb493186f98)
+![image](https://github.com/user-attachments/assets/9751288c-727b-4e9a-ab66-dbca56c756c3)
+![image](https://github.com/user-attachments/assets/a165d653-b973-4cdf-b386-2c6f9586ab4c)
+![image](https://github.com/user-attachments/assets/f73eea9a-c9b1-4ae3-8c40-2a6d560b9049)
+
+
 ### 🔥 2D Heatmaps
 
 ```python
@@ -180,6 +188,10 @@ sns.heatmap(results_df.pivot('param_min_samples_split', 'param_min_samples_leaf'
 plt.title("Accuracy: min_samples_split vs min_samples_leaf")
 plt.show()
 ```
+
+![image](https://github.com/user-attachments/assets/ca63fbec-6b24-4569-95d1-0300cc509094)
+![image](https://github.com/user-attachments/assets/6af778d4-3946-46c3-8ffc-27dac51e8709)
+
 
 ---
 
@@ -201,6 +213,11 @@ shap.plots.waterfall(shap_values[..., 1][0])
 shap.initjs()
 shap.plots.force(shap_values[..., 1][0], matplotlib=True)
 ```
+
+![image](https://github.com/user-attachments/assets/34cc4f93-dff9-4d08-932a-b9118695287d)
+![image](https://github.com/user-attachments/assets/57780d32-6f0d-4db3-a7a2-93edbff6ba67)
+![image](https://github.com/user-attachments/assets/9082daec-9375-4d8c-845c-760962f8815b)
+
 
 ---
 
