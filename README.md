@@ -1,6 +1,7 @@
 # 📊 Random Forest Classifier for Employee Burnout Detection
 
 This project uses a **Random Forest Classifier** to predict employee burnout based on synthetic workplace data. It includes **data preprocessing**, **model training**, **hyperparameter tuning**, and **SHAP explainability**.
+![image](https://github.com/user-attachments/assets/4805d2ae-daac-4186-90f9-06a76d099143)
 
 ---
 
@@ -93,17 +94,17 @@ plt.tight_layout()
 plt.show()
 ```
 
-Human or symbolic imagery?
+### 📊 Classification Report
 
-📊 Classification Report:
-              precision    recall  f1-score   support
+| Class        | Precision | Recall | F1-score | Support |
+|--------------|-----------|--------|----------|---------|
+| **0**        | 1.00      | 1.00   | 1.00     | 374     |
+| **1**        | 1.00      | 1.00   | 1.00     | 26      |
+|              |           |        |          |         |
+| **Accuracy** |           |        | **1.00** | 400     |
+| **Macro avg**| 1.00      | 1.00   | 1.00     | 400     |
+| **Weighted avg** | 1.00  | 1.00   | 1.00     | 400     |
 
-           0       1.00      1.00      1.00       374
-           1       1.00      1.00      1.00        26
-
-    accuracy                           1.00       400
-   macro avg       1.00      1.00      1.00       400
-weighted avg       1.00      1.00      1.00       400
 
 ![image](https://github.com/user-attachments/assets/6e21badf-0f31-4118-a6d7-d40527fe635d)
 
