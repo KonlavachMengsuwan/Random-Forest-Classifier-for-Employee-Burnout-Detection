@@ -93,6 +93,21 @@ plt.tight_layout()
 plt.show()
 ```
 
+Human or symbolic imagery?
+
+📊 Classification Report:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00       374
+           1       1.00      1.00      1.00        26
+
+    accuracy                           1.00       400
+   macro avg       1.00      1.00      1.00       400
+weighted avg       1.00      1.00      1.00       400
+
+![image](https://github.com/user-attachments/assets/6e21badf-0f31-4118-a6d7-d40527fe635d)
+
+
 ---
 
 ## 🛠️ Hyperparameter Tuning (Grid Search)
