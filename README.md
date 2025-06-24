@@ -250,7 +250,7 @@ shap.plots.force(shap_values[..., 1][0], matplotlib=True)
 
 ## 👤 Author
 
-Built by \[Your Name] as an educational project exploring machine learning and explainability using Random Forest and SHAP.
+Built by \[Konlavach Mengsuwan] as an educational project exploring machine learning and explainability using Random Forest and SHAP.
 
 ---
 
