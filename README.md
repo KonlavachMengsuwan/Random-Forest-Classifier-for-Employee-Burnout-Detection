@@ -1,47 +1,46 @@
-📊 Random Forest Classifier for Employee Burnout Detection
+# 📊 Random Forest Classifier for Employee Burnout Detection
 
-This project uses a Random Forest Classifier to predict employee burnout based on synthetic workplace data. It includes data preprocessing, model training, hyperparameter tuning, and SHAP explainability.
+This project uses a **Random Forest Classifier** to predict employee burnout based on synthetic workplace data. It includes **data preprocessing**, **model training**, **hyperparameter tuning**, and **SHAP explainability**.
 
-🧠 Motivation
+---
+
+## 🧠 Motivation
 
 Burnout is a growing concern in modern workplaces. Early detection using machine learning could help mitigate negative impacts on employees and organizations. This project explores:
 
-Can a simple Random Forest predict burnout reliably?
+* Can a simple Random Forest predict burnout reliably?
+* What features most influence burnout prediction?
+* How do different Random Forest hyperparameters affect model performance?
+* Can SHAP help explain individual predictions?
 
-What features most influence burnout prediction?
+---
 
-How do different Random Forest hyperparameters affect model performance?
+## 🔍 Dataset
 
-Can SHAP help explain individual predictions?
+A synthetic dataset (`synthetic_employee_burnout.csv`) simulates employee data with these features:
 
-🔍 Dataset
+* `Name` (dropped)
+* `Gender` (categorical)
+* `JobRole` (categorical)
+* `Age`, `Experience`, `RemoteRatio`, `WorkHoursPerWeek`, `SatisfactionLevel`, `StressLevel`
+* Target: `Burnout` (0 = No, 1 = Yes)
 
-A synthetic dataset (synthetic_employee_burnout.csv) simulates employee data with these features:
+---
 
-Name (dropped)
+## 🚀 Objectives
 
-Gender (categorical)
+* Train a Random Forest model to classify burnout.
+* Tune hyperparameters using `GridSearchCV`.
+* Analyze model performance.
+* Use SHAP to explain predictions.
 
-JobRole (categorical)
+---
 
-Age, Experience, RemoteRatio, WorkHoursPerWeek, SatisfactionLevel, StressLevel
+## 🧪 Methods
 
-Target: Burnout (0 = No, 1 = Yes)
+### ✅ 1. Install and Import Libraries
 
-🚀 Objectives
-
-Train a Random Forest model to classify burnout.
-
-Tune hyperparameters using GridSearchCV.
-
-Analyze model performance.
-
-Use SHAP to explain predictions.
-
-🧪 Methods
-
-✅ 1. Install and Import Libraries
-
+```python
 !pip install pandas numpy matplotlib seaborn scikit-learn -q
 import pandas as pd, numpy as np, seaborn as sns
 import matplotlib.pyplot as plt
@@ -49,9 +48,11 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, confusion_matrix
+```
 
-📂 2. Load and Preprocess Data
+### 📂 2. Load and Preprocess Data
 
+```python
 from google.colab import files
 uploaded = files.upload()
 df = pd.read_csv('synthetic_employee_burnout.csv')
@@ -64,29 +65,39 @@ for col in ['Gender', 'JobRole']:
 X = df.drop('Burnout', axis=1)
 y = df['Burnout']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+```
 
-🌳 3. Train Initial Random Forest
+### 🌳 3. Train Initial Random Forest
 
+```python
 model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
+```
 
-📈 4. Evaluate Model
+### 📈 4. Evaluate Model
 
+```python
 y_pred = model.predict(X_test)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
+```
 
-📊 5. Feature Importance
+### 📊 5. Feature Importance
 
+```python
 importances = model.feature_importances_
 importance_df = pd.DataFrame({'Feature': X.columns, 'Importance': importances}).sort_values(by='Importance', ascending=False)
 sns.barplot(x='Importance', y='Feature', data=importance_df)
 plt.title("Random Forest Feature Importance")
 plt.tight_layout()
 plt.show()
+```
 
-🛠️ Hyperparameter Tuning (Grid Search)
+---
 
+## 🛠️ Hyperparameter Tuning (Grid Search)
+
+```python
 param_grid = {
     'n_estimators': [50, 100, 200],
     'max_depth': [None, 10, 20],
@@ -96,20 +107,28 @@ param_grid = {
 
 grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, scoring='accuracy', cv=5, verbose=1, n_jobs=-1)
 grid_search.fit(X_train, y_train)
+```
 
-🔍 Best Parameters
+### 🔍 Best Parameters
 
+```python
 print(grid_search.best_params_)
+```
 
-📊 Evaluate Best Model
+### 📊 Evaluate Best Model
 
+```python
 best_model = grid_search.best_estimator_
 y_pred_best = best_model.predict(X_test)
 print(confusion_matrix(y_test, y_pred_best))
 print(classification_report(y_test, y_pred_best))
+```
 
-📉 Visualizing Hyperparameter Impact
+---
 
+## 📉 Visualizing Hyperparameter Impact
+
+```python
 results_df = pd.DataFrame(grid_search.cv_results_)
 
 # 1D Plots
@@ -128,9 +147,11 @@ plt.show()
 sns.lineplot(x='param_min_samples_leaf', y='mean_test_score', data=results_df)
 plt.title("Effect of min_samples_leaf")
 plt.show()
+```
 
-🔥 2D Heatmaps
+### 🔥 2D Heatmaps
 
+```python
 results_df['param_max_depth'] = results_df['param_max_depth'].astype(str)
 
 # n_estimators vs max_depth
@@ -142,9 +163,13 @@ plt.show()
 sns.heatmap(results_df.pivot('param_min_samples_split', 'param_min_samples_leaf', 'mean_test_score'), annot=True, fmt='.3f', cmap="magma")
 plt.title("Accuracy: min_samples_split vs min_samples_leaf")
 plt.show()
+```
 
-🧠 Explainable AI (SHAP)
+---
 
+## 🧠 Explainable AI (SHAP)
+
+```python
 !pip install shap==0.41.0 -q
 import shap
 explainer = shap.Explainer(best_model, X_train)
@@ -159,48 +184,41 @@ shap.plots.waterfall(shap_values[..., 1][0])
 # Force plot
 shap.initjs()
 shap.plots.force(shap_values[..., 1][0], matplotlib=True)
+```
 
-🔧 Hyperparameter Meaning
+---
 
-Parameter
+## 🔧 Hyperparameter Meaning
 
-Description
+| Parameter           | Description                                                                  |
+| ------------------- | ---------------------------------------------------------------------------- |
+| `n_estimators`      | Number of decision trees. Higher = more stable but slower.                   |
+| `max_depth`         | Max depth of each tree. None = full growth. Lower depth reduces overfitting. |
+| `min_samples_split` | Minimum samples to split a node. Higher = more conservative trees.           |
+| `min_samples_leaf`  | Minimum samples in a leaf. Helps smooth noisy data.                          |
 
-n_estimators
+---
 
-Number of decision trees. Higher = more stable but slower.
+## ✅ Summary
 
-max_depth
+* **Random Forest** predicts burnout with very high accuracy.
+* **Key Features**: Stress level, satisfaction, work hours.
+* **SHAP** provides transparent model interpretation.
+* **GridSearchCV** fine-tunes performance and improves generalization.
 
-Max depth of each tree. None = full growth. Lower depth reduces overfitting.
+---
 
-min_samples_split
+## 📁 Files
 
-Minimum samples to split a node. Higher = more conservative trees.
+* `synthetic_employee_burnout.csv`: synthetic dataset
+* `notebook.ipynb`: Colab-compatible training + tuning + SHAP analysis script
 
-min_samples_leaf
+---
 
-Minimum samples in a leaf. Helps smooth noisy data.
+## 👤 Author
 
-✅ Summary
+Built by \[Your Name] as an educational project exploring machine learning and explainability using Random Forest and SHAP.
 
-Random Forest predicts burnout with very high accuracy.
-
-Key Features: Stress level, satisfaction, work hours.
-
-SHAP provides transparent model interpretation.
-
-GridSearchCV fine-tunes performance and improves generalization.
-
-📁 Files
-
-synthetic_employee_burnout.csv: synthetic dataset
-
-notebook.ipynb: Colab-compatible training + tuning + SHAP analysis script
-
-👤 Author
-
-Built by [Your Name] as an educational project exploring machine learning and explainability using Random Forest and SHAP.
+---
 
 Let me know if you'd like me to help convert this into Markdown or push to a real GitHub repo!
-
