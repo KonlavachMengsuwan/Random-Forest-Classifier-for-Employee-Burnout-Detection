@@ -251,7 +251,7 @@ shap.plots.force(shap_values[..., 1][0], matplotlib=True)
 ## 👤 Author
 
 Built by \[Konlavach Mengsuwan] as an educational project exploring machine learning and explainability using Random Forest and SHAP.
-Code: https://colab.research.google.com/drive/17xEicrmVLe4w_cogH2-m0-D1xhcxJ2N6?usp=sharing
 ---
+Code: https://colab.research.google.com/drive/17xEicrmVLe4w_cogH2-m0-D1xhcxJ2N6?usp=sharing
 
 Let me know if you'd like me to help convert this into Markdown or push to a real GitHub repo!
